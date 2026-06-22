@@ -27,6 +27,14 @@ export function ProductsPage() {
   const debouncedMin = useDebounce(minPrice);
   const debouncedMax = useDebounce(maxPrice);
 
+  const clearFilters = () => {
+    setSearch('');
+    setSort('newest');
+    setMinPrice('');
+    setMaxPrice('');
+    // page resets to 1 via the filter-change effect below.
+  };
+
   // Any filter change resets to the first page.
   useEffect(() => {
     setPage(1);
@@ -62,6 +70,7 @@ export function ProductsPage() {
         maxPrice={maxPrice}
         onMinPriceChange={setMinPrice}
         onMaxPriceChange={setMaxPrice}
+        onClear={clearFilters}
       />
 
       {isError ? (

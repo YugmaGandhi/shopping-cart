@@ -1,4 +1,5 @@
-import { Search } from 'lucide-react';
+import { Search, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -18,6 +19,7 @@ interface ToolbarProps {
   maxPrice: string;
   onMinPriceChange: (v: string) => void;
   onMaxPriceChange: (v: string) => void;
+  onClear: () => void;
 }
 
 export function ProductsToolbar({
@@ -29,7 +31,11 @@ export function ProductsToolbar({
   maxPrice,
   onMinPriceChange,
   onMaxPriceChange,
+  onClear,
 }: ToolbarProps) {
+  // "Clear" is offered only when something is actually filtering the list.
+  const hasActiveFilters = search !== '' || minPrice !== '' || maxPrice !== '' || sort !== 'newest';
+
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
       <div className="relative flex-1 sm:min-w-[240px]">
@@ -77,6 +83,18 @@ export function ProductsToolbar({
           <SelectItem value="price_desc">Price: high to low</SelectItem>
         </SelectContent>
       </Select>
+
+      {/* Always rendered (just disabled when inactive) so the toolbar layout never shifts. */}
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={onClear}
+        disabled={!hasActiveFilters}
+        aria-label="Clear all filters"
+      >
+        <X className="h-4 w-4" />
+        Clear filters
+      </Button>
     </div>
   );
 }
