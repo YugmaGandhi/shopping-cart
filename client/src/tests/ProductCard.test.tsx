@@ -38,7 +38,7 @@ describe('ProductCard', () => {
   it('renders product name and price', () => {
     renderWithProviders(<ProductCard product={product} />, { authed: true });
     expect(screen.getByText('Gadget')).toBeInTheDocument();
-    expect(screen.getByText('$19.99')).toBeInTheDocument();
+    expect(screen.getByText('₹19.99')).toBeInTheDocument();
   });
 
   it('adds to cart when authenticated', async () => {

@@ -50,7 +50,7 @@ export function ProductsToolbar({
           inputMode="numeric"
           value={minPrice}
           onChange={(e) => onMinPriceChange(e.target.value)}
-          placeholder="Min $"
+          placeholder="Min ₹"
           aria-label="Minimum price"
           className="w-24"
         />
@@ -61,7 +61,7 @@ export function ProductsToolbar({
           inputMode="numeric"
           value={maxPrice}
           onChange={(e) => onMaxPriceChange(e.target.value)}
-          placeholder="Max $"
+          placeholder="Max ₹"
           aria-label="Maximum price"
           className="w-24"
         />

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useUpdateQtyMutation, useRemoveItemMutation } from './cartApi';
 import type { CartItem as CartItemType } from './types';
 import type { ApiErrorShape } from '@/features/api/apiSlice';
+import { formatPrice } from '@/lib/currency';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/sonner';
 
@@ -49,9 +50,9 @@ export function CartItem({ item }: { item: CartItemType }) {
       <div className="flex flex-1 flex-col gap-2">
         <div className="flex justify-between gap-2">
           <span className="line-clamp-1 text-sm font-medium">{product.name}</span>
-          <span className="text-sm font-semibold">${lineTotal.toFixed(2)}</span>
+          <span className="text-sm font-semibold">{formatPrice(lineTotal)}</span>
         </div>
-        <span className="text-xs text-muted-foreground">${product.price.toFixed(2)} each</span>
+        <span className="text-xs text-muted-foreground">{formatPrice(product.price)} each</span>
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">

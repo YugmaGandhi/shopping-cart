@@ -6,6 +6,7 @@ import { selectIsAuthenticated } from '@/features/auth/authSlice';
 import { useAddItemMutation } from '@/features/cart/cartApi';
 import type { ApiErrorShape } from '@/features/api/apiSlice';
 import type { Product } from './types';
+import { formatPrice } from '@/lib/currency';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -61,7 +62,7 @@ export function ProductCard({ product }: { product: Product }) {
       </CardContent>
 
       <CardFooter className="flex items-center justify-between gap-2 p-4 pt-0">
-        <span className="text-lg font-semibold">${product.price.toFixed(2)}</span>
+        <span className="text-lg font-semibold">{formatPrice(product.price)}</span>
         <Button size="sm" onClick={handleAdd} disabled={isLoading || outOfStock}>
           <ShoppingCart className="h-4 w-4" />
           {isLoading ? 'Adding…' : 'Add'}

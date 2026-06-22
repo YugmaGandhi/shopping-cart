@@ -39,7 +39,7 @@ describe('CartItem', () => {
     render(<CartItem item={item} />);
     expect(screen.getByText('Widget')).toBeInTheDocument();
     expect(screen.getByText('2')).toBeInTheDocument();
-    expect(screen.getByText('$20.00')).toBeInTheDocument();
+    expect(screen.getByText('₹20')).toBeInTheDocument();
   });
 
   it('increments quantity when + is clicked', async () => {

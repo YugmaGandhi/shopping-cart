@@ -1,5 +1,6 @@
 import { ShoppingCart } from 'lucide-react';
 import { useGetCartQuery } from './cartApi';
+import { formatPrice } from '@/lib/currency';
 import { CartItem } from './CartItem';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -76,7 +77,7 @@ export function CartSidebar() {
           <div className="border-t pt-4">
             <div className="flex items-center justify-between text-base font-semibold">
               <span>Total</span>
-              <span>${cart.total.toFixed(2)}</span>
+              <span>{formatPrice(cart.total)}</span>
             </div>
             <p className="mt-1 text-xs text-muted-foreground">
               Checkout is out of scope for this assignment.

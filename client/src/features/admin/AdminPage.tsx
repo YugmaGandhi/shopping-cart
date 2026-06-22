@@ -5,6 +5,7 @@ import { useDeleteProductMutation } from './adminApi';
 import { ProductFormDialog } from './ProductFormDialog';
 import type { Product } from '@/features/products/types';
 import type { ApiErrorShape } from '@/features/api/apiSlice';
+import { formatPrice } from '@/lib/currency';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ErrorBanner } from '@/components/ErrorBanner';
@@ -102,7 +103,7 @@ export function AdminPage() {
                     />
                   </TableCell>
                   <TableCell className="font-medium">{p.name}</TableCell>
-                  <TableCell className="text-right">${p.price.toFixed(2)}</TableCell>
+                  <TableCell className="text-right">{formatPrice(p.price)}</TableCell>
                   <TableCell className="text-right">{p.stock}</TableCell>
                   <TableCell>
                     <div className="flex justify-end gap-1">
