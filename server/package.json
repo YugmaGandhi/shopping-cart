@@ -16,6 +16,7 @@
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
     "seed": "tsx scripts/seed.ts",
+    "openapi:gen": "tsx scripts/generate-openapi.ts",
     "test": "jest --runInBand"
   },
   "dependencies": {
