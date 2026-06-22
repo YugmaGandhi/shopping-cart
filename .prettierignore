@@ -1,0 +1,4 @@
+# Per-package code is formatted by each package's own prettier config/scripts.
+client
+server
+node_modules

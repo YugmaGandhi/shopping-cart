@@ -1,0 +1,18 @@
+set -e
+
+# 1) Auto-format + lint staged files (per package).
+npx lint-staged
+
+# 2) Whole-project typecheck for any package with staged changes
+#    (tsc is project-wide, not per-file, so we run it after lint-staged).
+staged=$(git diff --cached --name-only)
+
+if echo "$staged" | grep -q '^server/'; then
+  echo "> typecheck: server"
+  (cd server && npm run --silent typecheck)
+fi
+
+if echo "$staged" | grep -q '^client/'; then
+  echo "> typecheck: client"
+  (cd client && npm run --silent typecheck)
+fi
