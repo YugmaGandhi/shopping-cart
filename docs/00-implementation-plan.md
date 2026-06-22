@@ -128,12 +128,12 @@ own shape. OpenAPI documents the wrapped shape.
 
 ## 7. Phase overview
 
-| Phase | Document                                         | Focus                                                                             | Status         |
-| ----- | ------------------------------------------------ | --------------------------------------------------------------------------------- | -------------- |
-| **0** | [phase-0-foundation.md](./phase-0-foundation.md) | Repo, tooling, Docker, scaffolds                                                  | ✅ Complete    |
-| **1** | [phase-1-backend.md](./phase-1-backend.md)       | Models, auth+roles, products+admin CRUD, cart, errors, OpenAPI, Swagger UI, tests | ✅ Complete    |
-| **2** | [phase-2-frontend.md](./phase-2-frontend.md)     | Store, design system, error handling, auth, products, cart UI, admin UI, tests    | ✅ Complete    |
-| **3** | [phase-3-delivery.md](./phase-3-delivery.md)     | README, openapi.json artifact, QA, GitHub push                                    | ⏳ In progress |
+| Phase | Document                                         | Focus                                                                             | Status      |
+| ----- | ------------------------------------------------ | --------------------------------------------------------------------------------- | ----------- |
+| **0** | [phase-0-foundation.md](./phase-0-foundation.md) | Repo, tooling, Docker, scaffolds                                                  | ✅ Complete |
+| **1** | [phase-1-backend.md](./phase-1-backend.md)       | Models, auth+roles, products+admin CRUD, cart, errors, OpenAPI, Swagger UI, tests | ✅ Complete |
+| **2** | [phase-2-frontend.md](./phase-2-frontend.md)     | Store, design system, error handling, auth, products, cart UI, admin UI, tests    | ✅ Complete |
+| **3** | [phase-3-delivery.md](./phase-3-delivery.md)     | README, openapi.json artifact, QA, GitHub push                                    | ✅ Complete |
 
 We pause at the end of each phase for explicit approval before continuing.
 

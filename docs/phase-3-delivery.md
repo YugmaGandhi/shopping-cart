@@ -61,9 +61,9 @@ prove quality with a full QA pass, and ship to GitHub with a clean history.
 
 ---
 
-### Phase 3 exit criteria
+### Phase 3 exit criteria — ✅ COMPLETE
 
-- [ ] `/api/docs` live; `openapi.json` committed + Postman-importable
-- [ ] README runs the app from scratch; traceability table present
-- [ ] All checks green; manual smoke test passed
-- [ ] Pushed to GitHub; history clean; no secrets committed
+- [x] `/api/docs` live; `openapi.json` committed + Postman-importable
+- [x] README runs the app from scratch; traceability table present
+- [x] All checks green; headless e2e smoke passed (zero console errors)
+- [x] Pushed to GitHub; history clean; no secrets committed
