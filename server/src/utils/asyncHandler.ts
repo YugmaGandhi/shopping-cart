@@ -1,0 +1,14 @@
+import type { NextFunction, Request, RequestHandler, Response } from 'express';
+
+/**
+ * Wraps an async Express handler so any rejected promise is forwarded to
+ * `next(err)` and picked up by the central error handler — no try/catch in
+ * every controller.
+ */
+export function asyncHandler(
+  handler: (req: Request, res: Response, next: NextFunction) => Promise<unknown>,
+): RequestHandler {
+  return (req, res, next) => {
+    handler(req, res, next).catch(next);
+  };
+}
