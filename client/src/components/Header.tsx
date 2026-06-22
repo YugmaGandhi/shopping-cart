@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingBag, ShoppingCart, LogOut, ShieldCheck, User as UserIcon } from 'lucide-react';
+import { ShoppingBag, LogOut, ShieldCheck, User as UserIcon } from 'lucide-react';
+import { CartSidebar } from '@/features/cart/CartSidebar';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import {
   logout,
@@ -42,11 +43,7 @@ export function Header() {
         </Link>
 
         <div className="flex items-center gap-2">
-          {isAuthenticated && (
-            <Button variant="ghost" size="icon" aria-label="Cart" data-testid="cart-trigger">
-              <ShoppingCart className="h-5 w-5" />
-            </Button>
-          )}
+          {isAuthenticated && <CartSidebar />}
 
           {isAuthenticated ? (
             <DropdownMenu>

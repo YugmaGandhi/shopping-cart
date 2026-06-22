@@ -12,7 +12,7 @@ createRoot(document.getElementById('root')!).render(
     <ErrorBoundary>
       <Provider store={store}>
         <App />
-        <Toaster richColors position="top-right" />
+        <Toaster richColors position="bottom-right" />
       </Provider>
     </ErrorBoundary>
   </StrictMode>,
