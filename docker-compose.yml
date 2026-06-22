@@ -1,0 +1,29 @@
+# Local MongoDB for development.
+#
+# Preferred (Docker Compose v2 plugin):
+#   docker compose up -d
+#   docker compose down            # stop (keeps data volume)
+#   docker compose down -v         # stop and wipe data
+#
+# Fallback if the compose plugin is NOT installed on this host
+# (this environment is one such case):
+#   docker run -d --name shopping-cart-mongo \
+#     -p 27017:27017 \
+#     -v shopping-cart-mongo-data:/data/db \
+#     mongo:7
+#   docker stop shopping-cart-mongo && docker rm shopping-cart-mongo   # stop/remove
+#
+# Either way the app connects via:  mongodb://localhost:27017/shopping-cart
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: shopping-cart-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
