@@ -1,10 +1,11 @@
-import { Minus, Plus, Trash2, ImageOff } from 'lucide-react';
+import { Trash2, ImageOff } from 'lucide-react';
 import { useState } from 'react';
 import { useUpdateQtyMutation, useRemoveItemMutation } from './cartApi';
 import type { CartItem as CartItemType } from './types';
 import type { ApiErrorShape } from '@/features/api/apiSlice';
 import { formatPrice } from '@/lib/currency';
 import { Button } from '@/components/ui/button';
+import { QuantityStepper } from '@/components/QuantityStepper';
 import { toast } from '@/components/ui/sonner';
 
 export function CartItem({ item }: { item: CartItemType }) {
@@ -55,29 +56,7 @@ export function CartItem({ item }: { item: CartItemType }) {
         <span className="text-xs text-muted-foreground">{formatPrice(product.price)} each</span>
 
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1">
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-7 w-7"
-              aria-label="Decrease quantity"
-              disabled={pending}
-              onClick={() => changeQty(quantity - 1)}
-            >
-              <Minus className="h-3 w-3" />
-            </Button>
-            <span className="w-8 text-center text-sm tabular-nums">{quantity}</span>
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-7 w-7"
-              aria-label="Increase quantity"
-              disabled={pending}
-              onClick={() => changeQty(quantity + 1)}
-            >
-              <Plus className="h-3 w-3" />
-            </Button>
-          </div>
+          <QuantityStepper quantity={quantity} onChange={changeQty} disabled={pending} />
 
           <Button
             variant="ghost"

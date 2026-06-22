@@ -19,8 +19,41 @@ export const cartApi = apiSlice.injectEndpoints({
       providesTags: [CART_TAG],
     }),
 
-    addItem: builder.mutation<Cart, { productId: string; quantity?: number }>({
-      query: (body) => ({ url: '/cart/items', method: 'POST', body }),
+    addItem: builder.mutation<
+      Cart,
+      { productId: string; quantity?: number; _product?: Cart['items'][number]['product'] }
+    >({
+      query: ({ productId, quantity }) => ({
+        url: '/cart/items',
+        method: 'POST',
+        body: { productId, quantity },
+      }),
+      async onQueryStarted({ productId, quantity = 1, _product }, { dispatch, queryFulfilled }) {
+        if (!_product) return;
+        const patch = dispatch(
+          cartApi.util.updateQueryData('getCart', undefined, (draft) => {
+            const idx = draft.items.findIndex((i) => i.product.id === productId);
+            if (idx !== -1) {
+              draft.items[idx].quantity += quantity;
+              draft.items[idx].lineTotal = round2(
+                draft.items[idx].product.price * draft.items[idx].quantity,
+              );
+            } else {
+              draft.items.push({
+                product: _product,
+                quantity,
+                lineTotal: round2(_product.price * quantity),
+              });
+            }
+            recompute(draft);
+          }),
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patch.undo();
+        }
+      },
       invalidatesTags: [CART_TAG],
     }),
 
