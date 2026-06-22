@@ -50,6 +50,10 @@ phase docs) and refined during review.
   match end to end and forms get typed values.
 - **Prices formatted as INR** via `Intl.NumberFormat('en-IN')`. Stored values are currency-agnostic
   numbers; formatting is display-only (no conversion).
+- **No layout shift from conditional controls.** Persistent UI like the products toolbar reserves
+  space for its controls instead of mounting/unmounting them — e.g. the "Clear filters" button is
+  always rendered and merely disabled when no filter is active, so the toolbar never reflows.
+  Conditional mounting is reserved for genuinely transient UI (toasts, error banners, dialogs).
 
 ## Tooling
 

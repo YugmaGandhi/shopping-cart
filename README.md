@@ -1,8 +1,8 @@
 # Shopping Cart
 
-A production-grade, full-stack shopping cart: product catalog with search/sort/filter/pagination,
-a cart with live quantity controls and totals, JWT auth with roles, and a minimal admin product
-console. TypeScript end to end, with a documented REST API.
+A production-grade, full-stack shopping cart: product catalog with search/sort/filter/pagination
+(and a clear-all-filters control), a cart with live quantity controls and totals, JWT auth with
+roles, and a minimal admin product console. TypeScript end to end, with a documented REST API.
 
 - **Client:** Vite + React 18, Redux Toolkit + RTK Query, React Hook Form + Zod, Tailwind (design
   tokens) + shadcn/ui.
