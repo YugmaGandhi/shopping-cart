@@ -41,14 +41,16 @@ export function CartSidebar() {
       </SheetTrigger>
 
       <SheetContent className="flex w-full flex-col gap-0 sm:max-w-md">
-        <SheetHeader>
+        <SheetHeader className="shrink-0">
           <SheetTitle>Your cart</SheetTitle>
           <SheetDescription>
             {itemCount > 0 ? `${itemCount} item${itemCount > 1 ? 's' : ''}` : 'Cart is empty'}
           </SheetDescription>
         </SheetHeader>
 
-        <div className="flex-1 overflow-y-auto">
+        {/* min-h-0 lets this flex child shrink so it scrolls inside the panel
+            instead of overflowing under the header/footer. */}
+        <div className="min-h-0 flex-1 overflow-y-auto">
           {isError ? (
             <ErrorBanner message="Couldn’t load your cart." onRetry={refetch} className="mt-4" />
           ) : isLoading ? (
@@ -74,7 +76,7 @@ export function CartSidebar() {
         </div>
 
         {cart && cart.items.length > 0 && (
-          <div className="border-t pt-4">
+          <div className="shrink-0 border-t pt-4">
             <div className="flex items-center justify-between text-base font-semibold">
               <span>Total</span>
               <span>{formatPrice(cart.total)}</span>

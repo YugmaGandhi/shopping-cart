@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ImageOff } from 'lucide-react';
 import { useCreateProductMutation, useUpdateProductMutation } from './adminApi';
 import { productSchema, type ProductFormValues } from '@/lib/validation/product';
 import type { Product } from '@/features/products/types';
@@ -51,6 +52,8 @@ export function ProductFormDialog({ open, onOpenChange, product }: ProductFormDi
     resolver: zodResolver(productSchema),
     defaultValues: EMPTY,
   });
+
+  const imageUrl = form.watch('imageUrl');
 
   // Reset the form to match the product being edited (or empty for create).
   useEffect(() => {
@@ -138,6 +141,7 @@ export function ProductFormDialog({ open, onOpenChange, product }: ProductFormDi
                 </FormItem>
               )}
             />
+            <ImagePreview key={imageUrl} url={imageUrl} />
             <div className="grid grid-cols-2 gap-4">
               <FormField
                 control={form.control}
@@ -197,5 +201,30 @@ export function ProductFormDialog({ open, onOpenChange, product }: ProductFormDi
         </Form>
       </DialogContent>
     </Dialog>
+  );
+}
+
+/** Live preview of the entered image URL, with a graceful fallback if it fails to load. */
+function ImagePreview({ url }: { url: string }) {
+  const [errored, setErrored] = useState(false);
+  if (!url.trim()) return null;
+  // Same aspect-[4/3] + object-cover frame as the product card, so the preview
+  // shows exactly how any image (whatever its source size) will be displayed.
+  return (
+    <div className="aspect-[4/3] w-40 overflow-hidden rounded-md border bg-muted">
+      {errored ? (
+        <div className="flex h-full items-center justify-center gap-2 px-2 text-center text-xs text-muted-foreground">
+          <ImageOff className="h-4 w-4 shrink-0" />
+          Couldn’t load image
+        </div>
+      ) : (
+        <img
+          src={url}
+          alt="Preview"
+          className="h-full w-full object-cover"
+          onError={() => setErrored(true)}
+        />
+      )}
+    </div>
   );
 }
