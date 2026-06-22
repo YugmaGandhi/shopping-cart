@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import authRouter from '../modules/auth/auth.routes';
 import productsRouter from '../modules/products/product.routes';
+import cartRouter from '../modules/cart/cart.routes';
 
 /**
  * Aggregates all versioned resource routers under /api/v1. Bumping to a future
@@ -10,7 +11,6 @@ const v1Router = Router();
 
 v1Router.use('/auth', authRouter);
 v1Router.use('/products', productsRouter);
-// Mounted in a later stage:
-// v1Router.use('/cart', cartRouter);
+v1Router.use('/cart', cartRouter);
 
 export default v1Router;
