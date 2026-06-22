@@ -1,6 +1,20 @@
-import { Schema, model, type InferSchemaType, type HydratedDocument } from 'mongoose';
+import { Schema, model, type HydratedDocument } from 'mongoose';
 
-const productSchema = new Schema(
+/**
+ * Explicit document interface (instead of `InferSchemaType`) for the same reason
+ * as the User model: inference degrades fields to `unknown` once a schema uses a
+ * `toJSON.transform` that deletes keys. See user.model.ts.
+ */
+export interface Product {
+  name: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+  stock: number;
+  createdAt: Date;
+}
+
+const productSchema = new Schema<Product>(
   {
     name: { type: String, required: true, trim: true },
     description: { type: String, required: true, trim: true },
@@ -25,7 +39,6 @@ const productSchema = new Schema(
 productSchema.index({ name: 1 });
 productSchema.index({ price: 1 });
 
-export type Product = InferSchemaType<typeof productSchema>;
 export type ProductDocument = HydratedDocument<Product>;
 
-export const ProductModel = model('Product', productSchema);
+export const ProductModel = model<Product>('Product', productSchema);

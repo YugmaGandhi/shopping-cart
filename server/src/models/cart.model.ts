@@ -1,6 +1,23 @@
-import { Schema, model, type InferSchemaType, type HydratedDocument, type Types } from 'mongoose';
+import { Schema, model, type HydratedDocument, type Types } from 'mongoose';
 
-const cartItemSchema = new Schema(
+/**
+ * Explicit document interfaces (instead of `InferSchemaType`) for the same
+ * reason as the other models — inference degrades to `unknown` with our
+ * `toJSON.transform`. See user.model.ts. The cart stores only productId +
+ * quantity; price/name are populated from Product at read time.
+ */
+export interface CartItem {
+  productId: Types.ObjectId;
+  quantity: number;
+}
+
+export interface Cart {
+  userId: Types.ObjectId;
+  items: CartItem[];
+  updatedAt: Date;
+}
+
+const cartItemSchema = new Schema<CartItem>(
   {
     productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
     quantity: { type: Number, required: true, min: 1 },
@@ -8,7 +25,7 @@ const cartItemSchema = new Schema(
   { _id: false },
 );
 
-const cartSchema = new Schema(
+const cartSchema = new Schema<Cart>(
   {
     userId: {
       type: Schema.Types.ObjectId,
@@ -31,9 +48,6 @@ const cartSchema = new Schema(
   },
 );
 
-export type CartItem = InferSchemaType<typeof cartItemSchema>;
-export type Cart = InferSchemaType<typeof cartSchema>;
 export type CartDocument = HydratedDocument<Cart>;
-export type CartItemInput = { productId: Types.ObjectId; quantity: number };
 
-export const CartModel = model('Cart', cartSchema);
+export const CartModel = model<Cart>('Cart', cartSchema);
