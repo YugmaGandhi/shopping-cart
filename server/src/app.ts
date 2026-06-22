@@ -2,8 +2,10 @@ import express, { type Express, type Request, type Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import swaggerUi from 'swagger-ui-express';
 import { env } from './config/env';
 import v1Router from './routes/v1';
+import { buildOpenApiDocument } from './docs/openapi';
 import { notFound } from './middleware/notFound';
 import { errorHandler } from './middleware/errorHandler';
 
@@ -25,6 +27,13 @@ export function createApp(): Express {
   // Operational endpoint — intentionally unversioned.
   app.get('/api/health', (_req: Request, res: Response) => {
     res.status(200).json({ status: 'ok' });
+  });
+
+  // Interactive API docs (Swagger UI) — unversioned. Generated from Zod schemas.
+  const openApiDocument = buildOpenApiDocument();
+  app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openApiDocument));
+  app.get('/api/docs.json', (_req: Request, res: Response) => {
+    res.json(openApiDocument);
   });
 
   // Versioned resource routes.
