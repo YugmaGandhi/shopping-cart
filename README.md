@@ -36,7 +36,8 @@ in one shot. My workflow was deliberately planning-first and incremental:
    test), and a Mongoose `InferSchemaType` typing pitfall (resolved with explicit document interfaces).
 
 In short: Claude Code accelerated the implementation, but the architecture, decisions, reviews, and
-verification are mine.
+verification are mine. The rationale behind the key choices is written up in
+[`docs/DECISIONS.md`](./docs/DECISIONS.md).
 
 ---
 
